@@ -183,7 +183,7 @@ export default function App() {
                   <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${darkMode ? 'bg-indigo-500/10 text-indigo-400' : 'bg-indigo-50 text-indigo-700'}`}>
                     Data Science / RAG
                   </div>
-                  <a href="https://github.com" target="_blank" rel="noreferrer" className={`p-2 rounded-full transition-colors ${darkMode ? 'bg-white/5 text-gray-400 hover:text-white' : 'bg-gray-100 text-gray-500 hover:text-gray-900'}`}>
+                  <a href="https://github.com/Itzel0115/WattBot-2025" target="_blank" rel="noreferrer" className={`p-2 rounded-full transition-colors ${darkMode ? 'bg-white/5 text-gray-400 hover:text-white' : 'bg-gray-100 text-gray-500 hover:text-gray-900'}`}>
                     <Github size={18} />
                   </a>
                 </div>
@@ -194,7 +194,7 @@ export default function App() {
                 <div className="flex flex-wrap gap-2 mb-6">
                   <span className={`text-xs px-2 py-1 rounded-md ${darkMode ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>Python</span>
                   <span className={`text-xs px-2 py-1 rounded-md ${darkMode ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>LLM / Embeddings</span>
-                  <span className={`text-xs px-2 py-1 rounded-md ${darkMode ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>OCR</span>
+                  <span className={`text-xs px-2 py-1 rounded-md ${darkMode ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>RAG</span>
                 </div>
               </div>
               <div className={`pt-4 border-t flex justify-between items-center ${darkMode ? 'border-white/10' : 'border-gray-100'}`}>

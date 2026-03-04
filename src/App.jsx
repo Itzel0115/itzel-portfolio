@@ -236,7 +236,7 @@ export default function App() {
                   <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${darkMode ? 'bg-indigo-500/10 text-indigo-400' : 'bg-indigo-50 text-indigo-700'}`}>
                     Financial Modeling
                   </div>
-                  <a href="#" className={`p-2 rounded-full transition-colors ${darkMode ? 'bg-white/5 text-gray-400 hover:text-white' : 'bg-gray-100 text-gray-500 hover:text-gray-900'}`}>
+                  <a href="https://drive.google.com/drive/folders/1jVKEOIgh8rAjLwl7US8fgZRuOM-lMZpN?usp=drive_link" target="_blank" rel="noreferrer" className={`p-2 rounded-full transition-colors ${darkMode ? 'bg-white/5 text-gray-400 hover:text-white' : 'bg-gray-100 text-gray-500 hover:text-gray-900'}`}>
                     <ExternalLink size={18} />
                   </a>
                 </div>

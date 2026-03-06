@@ -113,9 +113,7 @@ export default function App() {
             "Bridging the gap between rigorous analytics and impactful storytelling."
           </p>
           <p className={`text-lg mb-10 leading-relaxed ${darkMode ? 'text-gray-400' : 'text-gray-600'} max-w-2xl`}>
-            I am a student at National Chengchi University (NCCU) double majoring in Finance and Statistics.
-            Whether I am building RAG pipelines for asset management, constructing quantitative trading strategies,
-            or hosting a university-wide gala, I thrive on solving complex problems and communicating insights clearly.
+          I’m a student at National Chengchi University, double majoring in Finance and Statistics, currently holding a GPA of 4.24 and ranking 2nd out of 66 in my class. I’m someone who approaches work with both enthusiasm and thoughtfulness. I genuinely enjoy learning, solving difficult problems, and connecting with people. Whether I’m building RAG pipelines, working on quantitative research, or standing on stage as a host, I hope to bring both clarity and energy to whatever I do.
           </p>
 
           <div className="flex flex-wrap gap-4">

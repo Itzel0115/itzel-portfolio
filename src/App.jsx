@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 import {
   Moon, Sun, Download, Mail, Github, Linkedin,
   Calendar, ChevronRight, Briefcase, Trophy,
-  Activity, Mic, ExternalLink
+  Activity, Mic, ExternalLink, X
 } from 'lucide-react';
 
 const EMAIL = 'x.itzel2685@gmail.com';
-// 活動圖片路徑：請將圖片放在 public/hosting/ 資料夾，檔名見 public/hosting/README.md
+
+const RESUME_PDF_URL = `${import.meta.env.BASE_URL}Yi-Chen_Hsiao_Resume.pdf`;
+
 const hostingImg = (filename) => `${import.meta.env.BASE_URL}hosting/${filename}`;
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [emailCopied, setEmailCopied] = useState(false);
+  const [resumeModalOpen, setResumeModalOpen] = useState(false);
 
   useEffect(() => {
     if (darkMode) {
@@ -32,8 +35,15 @@ export default function App() {
     }
   };
 
-  const handleDownloadCV = () => {
-    alert("This will download 'Yi-Chen_Hsiao_Resume.pdf' in the live version.");
+  const handleOpenResume = () => setResumeModalOpen(true);
+  const handleDownloadResume = () => {
+    const a = document.createElement('a');
+    a.href = RESUME_PDF_URL;
+    a.download = 'Yi-Chen_Hsiao_Resume.pdf';
+    a.rel = 'noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   return (
@@ -72,7 +82,7 @@ export default function App() {
                 {darkMode ? <Sun size={18} /> : <Moon size={18} />}
               </button>
               <button
-                onClick={handleDownloadCV}
+                onClick={handleOpenResume}
                 className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white px-4 py-2 rounded-full text-sm font-medium transition-all shadow-[0_0_15px_rgba(79,70,229,0.3)] hover:shadow-[0_0_25px_rgba(79,70,229,0.5)]"
               >
                 <Download size={16} />
@@ -129,6 +139,23 @@ export default function App() {
 
         <div className="relative border-l border-indigo-500/30 ml-3 md:ml-4 space-y-12 pb-4">
 
+          {/* Gigabyte Technology */}
+          <div className="relative pl-8 md:pl-10">
+            <div className={`absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-indigo-500 ring-4 ${darkMode ? 'ring-[#0a0a0a]' : 'ring-[#fafafa]'}`}></div>
+            <div className="flex flex-col md:flex-row md:items-baseline md:justify-between mb-2">
+              <h3 className="text-xl font-bold">AI Engineering Intern</h3>
+              <div className={`text-sm flex items-center gap-1 mt-1 md:mt-0 ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                <Calendar size={14} /> Feb 2026 – Present
+              </div>
+            </div>
+            <div className="text-indigo-500 font-medium mb-4">Gigabyte Technology</div>
+            <ul className={`list-disc list-outside ml-4 space-y-2 text-sm leading-relaxed ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
+              <li>Participated in the development of an operational intelligence assistant integrating internal business data and external market information for management-oriented analytics.</li>
+              <li>Supported the design of a local LLM and RAG-based question answering workflow, with a focus on business indicator retrieval, report generation, and mobile-first interface planning.</li>
+              <li>Contributed to early-stage system planning for data integration, visualization dashboards, and operational analysis use cases involving revenue, inventory, and market disclosures.</li>
+            </ul>
+          </div>
+
           {/* Nomura */}
           <div className="relative pl-8 md:pl-10">
             <div className={`absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-indigo-500 ring-4 ${darkMode ? 'ring-[#0a0a0a]' : 'ring-[#fafafa]'}`}></div>
@@ -167,17 +194,22 @@ export default function App() {
         </div>
       </section>
 
-      {/* Projects Section */}
+      {/* Projects Section — 可橫向滑動的卡片 */}
       <section id="projects" className={`py-24 border-y ${darkMode ? 'border-white/5 bg-[#0f0f14]' : 'border-gray-100 bg-indigo-50/30'}`}>
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-heading font-bold mb-12 flex items-center gap-3">
             <ChevronRight className="text-indigo-500" /> Featured Projects
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
+          <style dangerouslySetInnerHTML={{ __html: `
+              #projects-scroll::-webkit-scrollbar { height: 8px; }
+              #projects-scroll::-webkit-scrollbar-track { border-radius: 4px; }
+              #projects-scroll::-webkit-scrollbar-thumb { border-radius: 4px; background: rgba(99, 102, 241, 0.3); }
+              #projects-scroll::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.5); }
+            `}} />
+          <div id="projects-scroll" className="flex gap-6 overflow-x-auto overflow-y-hidden pb-4 snap-x snap-mandatory scroll-smooth min-w-0">
             {/* Project 1: Data Science / RAG */}
-            <div className={`group relative flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${darkMode ? 'bg-[#15151a] border-white/10 hover:border-indigo-500/50 shadow-lg shadow-black/20' : 'bg-white border-gray-200 hover:border-indigo-400 hover:shadow-xl'}`}>
+            <div className={`flex-shrink-0 w-[320px] sm:w-[340px] snap-center group relative flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${darkMode ? 'bg-[#15151a] border-white/10 hover:border-indigo-500/50 shadow-lg shadow-black/20' : 'bg-white border-gray-200 hover:border-indigo-400 hover:shadow-xl'}`}>
               <div>
                 <div className="flex justify-between items-start mb-4">
                   <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${darkMode ? 'bg-indigo-500/10 text-indigo-400' : 'bg-indigo-50 text-indigo-700'}`}>
@@ -204,33 +236,35 @@ export default function App() {
             </div>
 
             {/* Project 2: Quant / Finance */}
-            <div className={`group relative flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${darkMode ? 'bg-[#15151a] border-white/10 hover:border-indigo-500/50 shadow-lg shadow-black/20' : 'bg-white border-gray-200 hover:border-indigo-400 hover:shadow-xl'}`}>
+            <div className={`flex-shrink-0 w-[320px] sm:w-[340px] snap-center group relative flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${darkMode ? 'bg-[#15151a] border-white/10 hover:border-indigo-500/50 shadow-lg shadow-black/20' : 'bg-white border-gray-200 hover:border-indigo-400 hover:shadow-xl'}`}>
               <div>
                 <div className="flex justify-between items-start mb-4">
                   <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${darkMode ? 'bg-indigo-500/10 text-indigo-400' : 'bg-indigo-50 text-indigo-700'}`}>
                     Quantitative Trading
                   </div>
-                  <a href="https://github.com" target="_blank" rel="noreferrer" className={`p-2 rounded-full transition-colors ${darkMode ? 'bg-white/5 text-gray-400 hover:text-white' : 'bg-gray-100 text-gray-500 hover:text-gray-900'}`}>
+                  <a href="https://github.com/Itzel0115/TXF-Project" target="_blank" rel="noreferrer" className={`p-2 rounded-full transition-colors ${darkMode ? 'bg-white/5 text-gray-400 hover:text-white' : 'bg-gray-100 text-gray-500 hover:text-gray-900'}`}>
                     <Github size={18} />
                   </a>
                 </div>
                 <h3 className="text-xl font-bold mb-2">CTA Strategy Research</h3>
                 <p className={`text-sm mb-4 line-clamp-3 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                  Developed a quantitative CTA strategy on TXF futures leveraging sentiment analysis and volatility proxies. Constructed robust backtesting engine on hourly data with OOS validation.
+                  Built a quantitative research and backtesting framework for Taiwan Index Futures using 1-minute intraday data. Implemented and compared MA, Bollinger Band, and Turtle strategies with grid search, risk overlay, walk-forward evaluation, and meta-labeling.
                 </p>
                 <div className="flex flex-wrap gap-2 mb-6">
                   <span className={`text-xs px-2 py-1 rounded-md ${darkMode ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>Pandas/NumPy</span>
                   <span className={`text-xs px-2 py-1 rounded-md ${darkMode ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>Backtesting</span>
+                  <span className={`text-xs px-2 py-1 rounded-md ${darkMode ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>Walk-Forward</span>
+                  <span className={`text-xs px-2 py-1 rounded-md ${darkMode ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>Meta-Labeling</span>
                 </div>
               </div>
               <div className={`pt-4 border-t flex justify-between items-center ${darkMode ? 'border-white/10' : 'border-gray-100'}`}>
                 <span className="text-sm font-semibold">TMBA Algorithmic</span>
-                <span className="text-indigo-500 font-bold text-sm">Sharpe: 1.24</span>
+                <span className="text-indigo-500 font-bold text-sm">TXF Quant Research</span>
               </div>
             </div>
 
             {/* Project 3: Valuation / Modeling */}
-            <div className={`group relative flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${darkMode ? 'bg-[#15151a] border-white/10 hover:border-indigo-500/50 shadow-lg shadow-black/20' : 'bg-white border-gray-200 hover:border-indigo-400 hover:shadow-xl'}`}>
+            <div className={`flex-shrink-0 w-[320px] sm:w-[340px] snap-center group relative flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${darkMode ? 'bg-[#15151a] border-white/10 hover:border-indigo-500/50 shadow-lg shadow-black/20' : 'bg-white border-gray-200 hover:border-indigo-400 hover:shadow-xl'}`}>
               <div>
                 <div className="flex justify-between items-start mb-4">
                   <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${darkMode ? 'bg-indigo-500/10 text-indigo-400' : 'bg-indigo-50 text-indigo-700'}`}>
@@ -253,6 +287,34 @@ export default function App() {
               <div className={`pt-4 border-t flex justify-between items-center ${darkMode ? 'border-white/10' : 'border-gray-100'}`}>
                 <span className="text-sm font-semibold">CFA Challenge</span>
                 <span className="text-indigo-500 font-bold text-sm">42% Upside</span>
+              </div>
+            </div>
+
+            {/* Project 4: NLP Course */}
+            <div className={`flex-shrink-0 w-[320px] sm:w-[340px] snap-center group relative flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 ${darkMode ? 'bg-[#15151a] border-white/10 hover:border-indigo-500/50 shadow-lg shadow-black/20' : 'bg-white border-gray-200 hover:border-indigo-400 hover:shadow-xl'}`}>
+              <div>
+                <div className="flex justify-between items-start mb-4">
+                  <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${darkMode ? 'bg-indigo-500/10 text-indigo-400' : 'bg-indigo-50 text-indigo-700'}`}>
+                    NLP / Course
+                  </div>
+                  <a href="https://github.com/Itzel0115/Natural_Language_Processing-1141-" target="_blank" rel="noreferrer" className={`p-2 rounded-full transition-colors ${darkMode ? 'bg-white/5 text-gray-400 hover:text-white' : 'bg-gray-100 text-gray-500 hover:text-gray-900'}`}>
+                    <Github size={18} />
+                  </a>
+                </div>
+                <h3 className="text-xl font-bold mb-2">Natural Language Processing (NTHU)</h3>
+                <p className={`text-sm mb-4 line-clamp-3 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
+                  Collection of four programming assignments: word embeddings (GloVe, Word2Vec, t-SNE), LSTM seq2seq for arithmetic, multi-task BERT, and RAG pipeline with LangChain (hybrid retrieval, local LLM QA).
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  <span className={`text-xs px-2 py-1 rounded-md ${darkMode ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>PyTorch</span>
+                  <span className={`text-xs px-2 py-1 rounded-md ${darkMode ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>Transformers</span>
+                  <span className={`text-xs px-2 py-1 rounded-md ${darkMode ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>LangChain</span>
+                  <span className={`text-xs px-2 py-1 rounded-md ${darkMode ? 'bg-white/5 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>RAG</span>
+                </div>
+              </div>
+              <div className={`pt-4 border-t flex justify-between items-center ${darkMode ? 'border-white/10' : 'border-gray-100'}`}>
+                <span className="text-sm font-semibold">NTHU NLP 2025</span>
+                <span className="text-indigo-500 font-bold text-sm">4 Assignments</span>
               </div>
             </div>
 
@@ -507,6 +569,43 @@ export default function App() {
           </p>
         </div>
       </footer>
+
+      {/* Resume 履歷彈窗：先展示，可選擇下載 */}
+      {resumeModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-label="履歷預覽">
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => setResumeModalOpen(false)} />
+          <div className={`relative w-full max-w-4xl max-h-[90vh] flex flex-col rounded-2xl overflow-hidden shadow-2xl ${darkMode ? 'bg-[#15151a]' : 'bg-white'}`}>
+            <div className={`flex items-center justify-between px-4 py-3 border-b ${darkMode ? 'border-white/10' : 'border-gray-200'}`}>
+              <span className="font-semibold">Resume</span>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={handleDownloadResume}
+                  className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white px-4 py-2 rounded-full text-sm font-medium transition-all"
+                >
+                  <Download size={16} />
+                  下載履歷
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setResumeModalOpen(false)}
+                  className={`p-2 rounded-full transition-colors ${darkMode ? 'hover:bg-white/10 text-gray-400' : 'hover:bg-gray-100 text-gray-600'}`}
+                  aria-label="關閉"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+            </div>
+            <div className="flex-1 min-h-0 bg-gray-900">
+              <iframe
+                src={`${RESUME_PDF_URL}#toolbar=1`}
+                title="Yi-Chen Hsiao Resume"
+                className="w-full h-[75vh] min-h-[400px]"
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Email copied toast */}
       {emailCopied && (

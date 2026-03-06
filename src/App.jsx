@@ -582,13 +582,13 @@ export default function App() {
                   className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white px-4 py-2 rounded-full text-sm font-medium transition-all"
                 >
                   <Download size={16} />
-                  下載履歷
+                  Download Resume
                 </button>
                 <button
                   type="button"
                   onClick={() => setResumeModalOpen(false)}
                   className={`p-2 rounded-full transition-colors ${darkMode ? 'hover:bg-white/10 text-gray-400' : 'hover:bg-gray-100 text-gray-600'}`}
-                  aria-label="關閉"
+                  aria-label="Close"
                 >
                   <X size={20} />
                 </button>
